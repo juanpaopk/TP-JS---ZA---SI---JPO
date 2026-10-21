@@ -78,3 +78,13 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
         // Aquí puedes usar: this.submit(); si deseas enviar el formulario de verdad.
         }
 });
+
+
+const captchaResponse = grecaptcha.getResponse();
+
+
+// Validar que el reCAPTCHA esté completado
+if (!captchaResponse) {
+    alert("Por favor, completá el reCAPTCHA.");
+    return;
+}
