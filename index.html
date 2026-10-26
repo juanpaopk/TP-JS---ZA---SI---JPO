@@ -33,12 +33,14 @@
             <div id="errorEmail" class="error">Ingrese un correo válido y sin espacios.</div>
         </div>
 
-        <!-- Campos opcionales -->
+        <!-- Asunto (Obligatorio) -->
         <div class="form-group">
             <label for="asunto">Asunto </label>
-            <input type="text" id="asunto" name="asunto">
+            <input type="text" id="asunto" name="asunto" required>
+            <div id="errorAsunto" class="error">El asunto es obligatorio.</div>
         </div>
 
+        <!-- Mensaje (Opcional) -->
         <div class="form-group">
             <label for="mensaje">Mensaje</label>
             <input type="text" id="mensaje" name="mensaje">
@@ -51,6 +53,13 @@
         <button type="submit">Enviar</button>
         </form>
     </form>
+
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("service_mmgp8h9"); // Reemplaza con tu Public Key
+        })();
+    </script>
 
 </body>
 </html>
