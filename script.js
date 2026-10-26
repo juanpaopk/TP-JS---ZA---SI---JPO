@@ -3,6 +3,9 @@
     const apellido = document.getElementById("apellido");
     const email = document.getElementById("email");
     const asunto = document.getElementById("asunto");
+    const templateID = 'lgc4o7k';
+    const serviceID = 'service_mmgp8h9';
+    emailjs.init("QfZ-51tvw0vV5XCbO");
 
     let esValido = true;
 
@@ -57,6 +60,30 @@
         grecaptcha.reset();
     })
     .catch((error) => {
+        console.error("Error de EmailJS:", error);
+        alert("No se pudo enviar el correo. Revisá la consola.");
+    });
+
+
+    (function(){
+    emailjs.init("QfZ-51tvw0vV5XCbO"); 
+})();
+
+document.getElementById('miFormulario').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const serviceID = 'service_mmgp8h9'; 
+    const templateID = 'lgc4o7k'; // Tu ID de plantilla que vimos en la URL
+
+    emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+            alert('¡Formulario enviado con éxito!');
+            this.reset();
+            grecaptcha.reset();
+        }, (error) => {
+            alert('Error al enviar el mensaje: ' + JSON.stringify(error));
+        });
+});
         console.error("Error de EmailJS:", error);
         alert("No se pudo enviar el correo. Revisá la consola.");
     });
