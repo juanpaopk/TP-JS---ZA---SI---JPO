@@ -1,33 +1,3 @@
-/* 1.- Agregar Re-CAPTCHA
-
-2.- Validar los campos
-2.1.- Que no permita avanzar sin los primeros tres campos
-2.2.- El resto es opcional
-2.3.- El input mail debe ser en formato mail y sin espacios
-2.4.- El campo "Nombre" debe tener un mínimo de 3 chars
-
-3.- Enviar el form a un servicio -> E-mail.JS
-
-Primeros 3 puntos es de acá a 15 días miércoles
-
-4.- Crear un log-in con una base de datos en Firebase
-
-4.1.- Correo (que valide si existe)
-4.2.- Contraseña (que valide que sea correcta)
-4.3.- Re-captcha de "no soy un robot"
-4.4.- Botón de submit
-4.5.- "¿Olvidaste tu contraseña?" - Que efectivamente funcione
-
-5.- Crear cuenta - Dentro del Log-in
-5.1.- Nombre y apellido
-5.2.- Mail
-5.3.- Contraseña
-
-6.- Usuario admin
-6.1.- Que tenga ABM de productos
-6.2.- Rol admin en NoSQL*/
-
-
 document.getElementById('miFormulario').addEventListener('submit', function(event) {
     // Detener el envío por defecto para validar primero
     event.preventDefault();
@@ -36,11 +6,13 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
     const nombre = document.getElementById("nombre");
     const apellido = document.getElementById("apellido");
     const email = document.getElementById("email");
+    const asunto = document.getElementById("asunto");
 
     // Obtener los contenedores de error
     const errorNombre = document.getElementById("errorNombre");
     const errorApellido = document.getElementById("errorApellido");
     const errorEmail = document.getElementById("errorEmail");
+    const errorAsunto = document.getElementById("errorAsunto");
 
     // Inicializar estado de validez
     let esValido = true;
@@ -49,6 +21,8 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
     errorNombre.style.display = "none";
     errorApellido.style.display = "none";
     errorEmail.style.display = "none";
+    errorAsunto.style.display = "none";
+
 
     // 1. Validar Nombre (Obligatorio y mínimo 3 caracteres)
     if (nombre.value.trim().length < 3) {
@@ -74,14 +48,19 @@ document.getElementById('miFormulario').addEventListener('submit', function(even
 
     const captchaResponse = grecaptcha.getResponse();
 
+    // 4. Validar Asunto (Obligatorio)
+    if (asunto.value.trim() === "") {
+            errorAsunto.style.display = "block";
+            esValido = false;
+    }
 
-    // Validar que el reCAPTCHA esté completado
+    // 5. Validar que el reCAPTCHA esté completado
     if (!captchaResponse) {
     alert("Por favor, completá el reCAPTCHA.");
     esValido = false;
     }
 
-    // Si todo es correcto, se puede proceder con el envío o acción requerida
+    // 6. Si todo es correcto, se puede proceder con el envío o acción requerida
     if (esValido) {
         alert("¡Formulario enviado con éxito!");
         // Aquí puedes usar: this.submit(); si deseas enviar el formulario de verdad.
